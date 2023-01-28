@@ -15,8 +15,18 @@ app.get("/products/:productID", async (req, res) => {
     const response = await request(
       `${baseUrl}&url=https://www.amazon.com/dp/&{productID}`
     );
-    res.json(response);
+    res.json(JSON.parse(response));
   } catch (error) {
     res.json(error)}
 });
+app.get("/products/:productID/reviews", async (req, res) => {
+    const { productID } = req.params;
+    try {
+      const response = await request(
+        `${baseUrl}&url=https://www.amazon.com/product-reviews/&{productID}`
+      );
+      res.json(JSON.parse(response));
+    } catch (error) {
+      res.json(error)}
+  });
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
