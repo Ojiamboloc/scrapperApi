@@ -19,11 +19,23 @@ app.get("/products/:productID", async (req, res) => {
   } catch (error) {
     res.json(error)}
 });
+//Get product reviews
 app.get("/products/:productID/reviews", async (req, res) => {
     const { productID } = req.params;
     try {
       const response = await request(
         `${baseUrl}&url=https://www.amazon.com/product-reviews/&{productID}`
+      );
+      res.json(JSON.parse(response));
+    } catch (error) {
+      res.json(error)}
+  });
+  //Get product offers
+  app.get("/products/:productID/offers", async (req, res) => {
+    const { productID } = req.params;
+    try {
+      const response = await request(
+        `${baseUrl}&url=https://www.amazon.com/gp/offer-listing/&{productID}`
       );
       res.json(JSON.parse(response));
     } catch (error) {
